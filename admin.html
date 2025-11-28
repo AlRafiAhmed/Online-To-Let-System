@@ -1,0 +1,186 @@
+<!-- 
+  Common Admin Panel for Tolet Bangla
+  - Both admins (Khalid Hasan Muen & Al Rafi Ahmed) access the exact same tools and controls.
+  - No separation of privileges at the panel level.
+  - See code comments (markdown style) for understanding structure & sections.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel | Tolet Bangla</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Comfortaa:wght@700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(to bottom right, #eef2ff, #fff1f2, #fef9c3 80%);
+      min-height: 100vh;
+    }
+    .admin-card {
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .admin-card:hover {
+      box-shadow: 0 8px 32px rgba(76,0,186,0.14), 0 4px 14px rgba(236,72,153,0.08);
+      transform: translateY(-3px) scale(1.02);
+    }
+    .admin-photo-wrapper {
+      width: 6rem;
+      height: 6rem;
+      margin-bottom: 0.75rem;
+      border-width: 4px;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(237, 100, 166, 0.18);
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+      padding: 0;
+    }
+    .admin-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-10">
+
+  <!-- 
+    ## Admins Listed (for transparency)
+    - Both administrators shown, both can access everything
+  -->
+  <div class="w-full max-w-3xl mx-auto mb-10">
+    <div class="flex flex-col items-center mb-6">
+      <h2 class="text-2xl md:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-pink-500 to-yellow-400 mb-2" style="font-family:'Comfortaa',cursive;">
+        Admin Information
+      </h2>
+      <p class="text-base text-gray-600 font-medium text-center max-w-lg mb-4">
+        The following administrators are authorized to access all panel and site management tools.
+      </p>
+    </div>
+    <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+      <!-- Admin: Khalid Hasan Muen -->
+      <div class="admin-card bg-white rounded-xl shadow-xl p-6 flex flex-col items-center border border-pink-100 min-w-[240px]">
+        <div class="admin-photo-wrapper border-pink-300">
+          <img
+            src="img/muen.jpg"
+            alt="Khalid Hasan Muen"
+            class="admin-photo"/>
+        </div>
+        <p class="text-lg font-bold text-pink-600 mb-1" style="font-family:'Comfortaa',cursive;">
+          Khalid Hasan Muen
+        </p>
+        <span class="text-sm text-gray-500 mb-1">Owner</span>
+        <p class="text-xs text-gray-600 text-center mt-1">
+          Responsible for overall system management, security, and administration.
+        </p>
+      </div>
+      <!-- Admin: Al Rafi Ahmed -->
+      <div class="admin-card bg-white rounded-xl shadow-xl p-6 flex flex-col items-center border border-yellow-100 min-w-[240px]">
+        <div class="admin-photo-wrapper border-yellow-300">
+          <img
+            src="img/rafi.jpg"
+            alt="Al Rafi Ahmed"
+            class="admin-photo"/>
+        </div>
+        <p class="text-lg font-bold text-yellow-600 mb-1" style="font-family:'Comfortaa',cursive;">
+          Engr. Al Rafi Ahmed
+        </p>
+        <span class="text-sm text-gray-500 mb-1">System Administrator</span>
+        <p class="text-xs text-gray-600 text-center mt-1">
+          Manages listings, supports admins, and oversees platform operations.
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- End Admins Listing -->
+
+  <!-- 
+    ## Common Admin Panel Heading & Welcome 
+    - No per-admin welcome, same for both
+  -->
+  <div class="w-full max-w-3xl mx-auto mb-10">
+    <div class="flex flex-col items-center mb-6">
+      <h1 class="text-3xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-pink-500 to-yellow-400 mb-2" style="font-family:'Comfortaa',cursive;">
+        Admin Panel
+      </h1>
+      <p class="text-lg text-gray-700 font-semibold opacity-75">
+        Welcome! All authorized admins can manage property listings and site tools below.
+      </p>
+    </div>
+  </div>
+  
+  <!-- 
+    ## Admin Tools & Controls 
+    - All tools visible for both admins.
+  -->
+  <div class="w-full max-w-4xl mx-auto px-2">
+    <div class="bg-white/90 rounded-2xl p-8 shadow-2xl border border-indigo-100">
+      <h2 class="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-l from-indigo-600 via-pink-500 to-yellow-400 mb-4 text-center" style="font-family:'Comfortaa',cursive;">
+        Admin Tools &amp; Controls
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Tool 1: Add Property -->
+        <a href="#"
+           class="flex flex-col items-center justify-center px-4 py-6 bg-gradient-to-br from-pink-200 via-indigo-100 to-yellow-100 rounded-xl shadow hover:bg-gradient-to-tr hover:from-yellow-100 hover:to-pink-300 transform transition hover:-translate-y-1 group">
+          <svg class="w-10 h-10 text-pink-500 group-hover:scale-105 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+          <span class="mt-3 text-base font-bold text-pink-700 group-hover:text-indigo-700">Add New Property</span>
+          <span class="text-xs text-gray-500 mt-1">Add rental listings to the site</span>
+        </a>
+        <!-- Tool 2: Manage Properties -->
+        <a href="#"
+           class="flex flex-col items-center justify-center px-4 py-6 bg-gradient-to-br from-indigo-100 via-pink-50 to-yellow-100 rounded-xl shadow hover:bg-gradient-to-tr hover:from-pink-100 hover:to-indigo-200 transform transition hover:-translate-y-1 group">
+          <svg class="w-10 h-10 text-indigo-500 group-hover:scale-105 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="4" y="7" width="16" height="13" rx="4" />
+            <path d="M8 7V5a4 4 0 018 0v2"/>
+          </svg>
+          <span class="mt-3 text-base font-bold text-indigo-700 group-hover:text-pink-600">Manage Properties</span>
+          <span class="text-xs text-gray-500 mt-1">Edit or remove property posts</span>
+        </a>
+        <!-- Tool 3: Post Requests with Unique Icon -->
+        <a href="#"
+           class="flex flex-col items-center justify-center px-4 py-6 bg-gradient-to-br from-yellow-100 via-pink-100 to-indigo-100 rounded-xl shadow hover:bg-gradient-to-tr hover:from-indigo-100 hover:to-yellow-200 transform transition hover:-translate-y-1 group">
+          <!-- Unique Icon for Post Requests (Clipboard with Checkmark) -->
+          <svg class="w-10 h-10 text-yellow-500 group-hover:scale-105 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <!-- Clipboard base -->
+            <rect x="7" y="4" width="10" height="16" rx="2" />
+            <path d="M9 4V2.75A1.75 1.75 0 0110.75 1h2.5A1.75 1.75 0 0115 2.75V4" />
+            <!-- Checkmark overlay for uniqueness -->
+            <path stroke="green" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9.5 13.5l2 2 3-3" />
+          </svg>
+          <span class="mt-3 text-base font-bold text-yellow-700 group-hover:text-indigo-600">Post Requests</span>
+          <span class="text-xs text-gray-500 mt-1">See user post requests</span>
+        </a>
+        <!-- More admin tools can be added here -->
+      </div>
+    </div>
+  </div>
+  
+  <!-- 
+    ## Logout Button 
+    - Same for both admins
+  -->
+  <div class="w-full flex justify-center mt-10 mb-4">
+    <button onclick="window.location.href='login.html'"
+      class="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-yellow-400 to-indigo-400 text-white font-bold shadow-md hover:scale-105 hover:from-yellow-500 hover:to-pink-500 transform transition">
+      <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5"/>
+      </svg>
+      Logout
+    </button>
+  </div>
+  
+  <!-- 
+    ## No Admin-specific JS Personalization Needed
+    - Panel is fully shared, no dynamic per-user welcome required
+  -->
+</body>
+</html>

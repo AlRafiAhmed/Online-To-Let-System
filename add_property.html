@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Property | Tolet Bangla</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", "Noto Sans Bengali", sans-serif;
+      overflow: hidden;
+    }
+    .bg-blur { 
+      backdrop-filter: blur(7px); 
+      background: rgba(255,255,255,0.93); 
+    }
+    .vdo-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100vw;
+      min-height: 100vh;
+      width: auto;
+      height: auto;
+      z-index: -1;
+      object-fit: cover;
+      filter: brightness(0.92) saturate(1.3) blur(1px);
+      pointer-events: none;
+    }
+    .spin-bg {
+      animation: spinBG 12s linear infinite;
+    }
+    @keyframes spinBG {
+      100% { filter: brightness(0.92) saturate(1.3) blur(1px) hue-rotate(360deg);}
+    }
+    .shake {
+      animation: shake 0.29s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    @keyframes shake {
+      10%, 90% {transform: translateX(-2px);}
+      20%, 80% {transform: translateX(4px);}
+      30%, 50%, 70% {transform: translateX(-8px);}
+      40%, 60% {transform: translateX(8px);}
+    }
+    .fade-in {
+      animation: fadeIn 1s both;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+    .compact-space-y > * + * {
+      margin-top: 0.85rem !important;
+    }
+    .compact-label {
+      margin-bottom: 0.20rem !important;
+      font-size: 0.98rem !important;
+    }
+    .compact-input, .compact-select, .compact-textarea {
+      padding-top: 0.55rem !important;
+      padding-bottom: 0.55rem !important;
+      padding-left: 0.75rem !important;
+      padding-right: 0.75rem !important;
+      font-size: 0.98rem !important;
+      border-radius: 0.5rem;
+    }
+    .image-preview-thumb {
+      width: 2.8rem !important;
+      height: 2.8rem !important;
+    }
+    .image-upload-plus {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed #a5b4fc;
+      background: #fff;
+      cursor: pointer;
+      transition: border 0.15s, background 0.15s;
+      border-radius: 0.75rem;
+      min-width: 2.8rem;
+      min-height: 2.8rem;
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+    .image-upload-plus svg {
+      width: 1.75rem;
+      height: 1.75rem;
+      color: #6366f1;
+    }
+    .image-upload-plus:hover {
+      border: 2px solid #c026d3;
+      background: #fdf2f8;
+    }
+    ::-webkit-scrollbar { width: 0 !important; }
+    .max-h-custom {
+      max-height: 97vh;
+      overflow-y: auto;
+    }
+    .modal-overlay {
+      position: fixed;
+      z-index: 50;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.34);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal {
+      background: #fff;
+      border-radius: 1.125rem;
+      max-width: 98vw;
+      min-width: 310px;
+      box-shadow: 0 6px 32px rgba(60,30,120,0.15);
+      padding: 2rem 1.25rem;
+      animation: fadeIn 0.6s;
+    }
+    @media (max-width: 600px) {
+      html, body {
+        font-size: 98%;
+      }
+      .modal {
+        padding: 1.1rem 0.5rem;
+        min-width: 98vw;
+      }
+      .dining-photo-row {
+        flex-direction: column !important;
+        gap: 0.65rem !important;
+      }
+    }
+    .dining-photo-row {
+      display: flex;
+      flex-direction: row;
+      gap: 1.5rem;
+      align-items: flex-end;
+    }
+    .dining-photo-row > div {
+      flex: 1 1 0;
+    }
+    .select-and-photo-label-row {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    @media (max-width: 700px) {
+      .dining-photo-row {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .select-and-photo-label-row {
+        flex-direction: column;
+        gap: 0;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body class="w-full h-full flex items-center justify-center relative">
+  <!-- Animated Video Background -->
+  <video class="vdo-bg spin-bg" autoplay muted loop playsinline style="opacity:0.7;">
+    <source src="img/bgc.mp4" type="video/mp4"/>
+    <div class="absolute inset-0 bg-gradient-to-r from-indigo-50 via-pink-50 to-yellow-50"></div>
+  </video>
+  
+  <div class="w-full max-w-2xl mx-auto px-6 py-6 rounded-2xl shadow-xl bg-blur fade-in max-h-custom flex flex-col justify-between relative z-10" style="min-height:unset;">
+    <div class="flex flex-col items-center mb-3">
+      <svg class="h-8 w-8 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 48 48" aria-hidden="true">
+        <rect width="38" height="30" x="5" y="8" rx="7" stroke="currentColor" fill="#E0E7FF"/>
+        <path d="M12 26h24M16 30h16" stroke="#D946EF"/>
+      </svg>
+      <h2 class="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-pink-500 to-yellow-400 mt-1 mb-0.5" style="font-family:'Comfortaa',cursive;">Add Property</h2>
+      <p class="text-indigo-600 text-xs opacity-90 text-center">Fill details. <span class="font-bold">*</span> Required.</p>
+    </div>
+    <form id="addPropertyForm" class="compact-space-y mt-2" enctype="multipart/form-data" autocomplete="off" style="flex-grow:1;">
+      <div class="flex flex-row space-x-4">
+        <div class="flex-1">
+          <label for="category" class="compact-label block text-indigo-700 font-semibold">Type *</label>
+          <select id="category" name="category" required
+            class="compact-select w-full border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-400 bg-white shadow-sm">
+            <option value="" disabled selected>Select</option>
+            <option value="Family">Family</option>
+            <option value="Bachelor">Bachelor</option>
+            <option value="Office">Office</option>
+            <option value="Sublet">Sublet</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Shop">Shop</option>
+          </select>
+        </div>
+        <div class="flex-1">
+          <label for="bedroom" class="compact-label block text-indigo-700 font-semibold">Bed *</label>
+          <select id="bedroom" name="bedroom" required
+            class="compact-select w-full border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-400 bg-white shadow-sm">
+            <option value="" disabled selected>Bedroom</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+        <div class="flex-1">
+          <label for="washroom" class="compact-label block text-indigo-700 font-semibold">Bath *</label>
+          <select id="washroom" name="washroom" required
+            class="compact-select w-full border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-400 bg-white shadow-sm">
+            <option value="" disabled selected>Washroom</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Dining/Select option & Balconni select & Photos side by side -->
+      <div class="dining-photo-row">
+        <div>
+          <div class="select-and-photo-label-row">
+            <div>
+              <label for="drawingDiningOption" class="compact-label block text-indigo-700 font-semibold mb-1">Dining &amp; Drawing Arrangement *</label>
+            </div>
+          </div>
+          <select id="drawingDiningOption" name="drawingDiningOption" required
+            class="compact-select w-full border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-400 bg-white shadow-sm text-xs">
+            <option value="" disabled selected>Select option</option>
+            <option value="together">Drawing &amp; Dining Together</option>
+            <option value="separate">Drawing &amp; Dining Separate</option>
+            <option value="none">No Drawing &amp; Dining</option>
+          </select>
+        </div>
+        <!-- Begin Balconni Select Option -->
+        <div>
+          <label for="balconni" class="compact-label block text-indigo-700 font-semibold mb-1">Balcony *</label>
+          <select id="balconni" name="balconni" required
+            class="compact-select w-full border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-400 bg-white shadow-sm text-xs">
+            <option value="" disabled selected>Select balcony</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+        <!-- End Balconni Select Option -->
+        <div>
+          <div class="select-and-photo-label-row">
+            <label for="images" class="compact-label block text-indigo-700 font-semibold mb-1">Photos* <span class="text-[11px] font-normal text-gray-500">(min 3)</span></label>
+          </div>
+          <div id="customImageUploadGroup" class="flex flex-wrap gap-2 mt-0.5">
+            <div id="addImageBox" class="image-upload-plus" tabindex="0" title="Add Photo">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke="#a5b4fc" fill="#EEF2FF"/>
+                <path d="M12 8v8M8 12h8" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div id="imagePreview" class="flex gap-2 flex-wrap"></div>
+          </div>
+          <input id="images" name="images" type="file" accept="image/*" multiple
+            class="compact-input w-full border rounded-lg border-indigo-200 bg-white text-xs shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-200"
+            style="display:none"
+            required>
+          <div id="imageError" class="text-xs text-pink-600 mt-1 font-semibold" style="display:none;"></div>
+        </div>
+      </div>
+      <!-- Description -->
+      <div>
+        <label for="description" class="compact-label block text-indigo-700 font-semibold">Description <span class="text-xs text-gray-400">(optional)</span></label>
+        <textarea id="description" name="description" rows="2" maxlength="120" placeholder="About property (optional)"
+          class="compact-textarea w-full border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-400 resize-none shadow-sm bg-white"></textarea>
+      </div>
+      <!-- Location & Contact Number -->
+      <div class="flex flex-row space-x-4">
+        <div class="flex-1">
+          <label for="location" class="compact-label block text-indigo-700 font-semibold">Location *</label>
+          <input id="location" name="location" type="text" required
+            placeholder="e.g. Uttara"
+            class="compact-input w-full border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-400 bg-white shadow-sm"/>
+        </div>
+        <div class="flex-1">
+          <label for="contact" class="compact-label block text-indigo-700 font-semibold">Contact *</label>
+          <input id="contact" name="contact" type="tel" required
+            pattern="01[0-9]{9,10}"
+            placeholder="Mobile"
+            class="compact-input w-full border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-400 bg-white shadow-sm"/>
+        </div>
+      </div>
+      <!-- Rent Amount & negotiable/fixed -->
+      <div class="flex flex-row gap-4">
+        <div class="flex-1">
+          <label for="rent" class="compact-label block text-indigo-700 font-semibold">Rent *</label>
+          <input id="rent" name="rent" type="number" min="0" step="100" required
+            placeholder="Tk"
+            class="compact-input w-full border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-400 bg-white shadow-sm"/>
+        </div>
+        <div class="flex-1">
+          <label for="rentType" class="compact-label block text-indigo-700 font-semibold">Type *</label>
+          <select id="rentType" name="rentType" required
+            class="compact-select w-full border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-pink-400 bg-white shadow-sm">
+            <option value="" disabled selected>Choose</option>
+            <option value="Negotiable">Negotiable</option>
+            <option value="Fixed">Fixed</option>
+          </select>
+        </div>
+      </div>
+      <div id="formErrorMsg" class="w-full text-center text-pink-600 text-xs font-semibold py-1 rounded-lg shadow-sm bg-pink-100 opacity-0 pointer-events-none transition-opacity"></div>
+      <button type="submit"
+        class="w-full py-2 rounded-lg bg-gradient-to-r from-pink-500 via-indigo-400 to-yellow-400 text-white font-extrabold shadow hover:from-pink-600 hover:to-yellow-500 transition-all text-base duration-200 scale-95 hover:scale-100 focus:outline-none">
+        Post Property
+      </button>
+    </form>
+    <div class="mt-3 text-center">
+      <a href="index.html" class="inline-block px-3 py-1.5 bg-white/90 rounded-lg shadow border border-indigo-200 font-semibold text-indigo-600 hover:bg-pink-50 transition duration-200 text-sm">Home</a>
+    </div>
+  </div>
+  <!-- Modal Overlay for Preview -->
+  <div id="previewModalOverlay" class="modal-overlay" style="display:none;">
+    <div class="modal p-4">
+      <h3 class="text-xl font-bold text-indigo-700 mb-2 text-center">Post Preview</h3>
+      <div id="previewContent" class="text-base text-gray-900 space-y-2"></div>
+      <div class="flex justify-center mt-4">
+        <button id="finalPostBtn" class="px-5 py-2 bg-gradient-to-r from-pink-500 via-indigo-400 to-yellow-400 text-white font-bold rounded-lg shadow hover:from-pink-600 hover:to-yellow-500 scale-95 hover:scale-100 transition-all">
+          Post
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="successModalOverlay" class="modal-overlay" style="display:none;">
+    <div class="modal py-7 px-8 flex flex-col items-center">
+      <svg class="w-12 h-12 text-green-600 mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" fill="#D1FAE5"/><path d="M7 12l3 3 7-7" stroke="#059669" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="text-xl font-semibold text-green-700 mb-1">Successfully Posted!</div>
+    </div>
+  </div>
+  <script>
+    // Custom: click on plus-box triggers file input
+    const addImageBox = document.getElementById('addImageBox');
+    const imagesInput = document.getElementById('images');
+    const imageError = document.getElementById('imageError');
+    const imagePreview = document.getElementById('imagePreview');
+    addImageBox.addEventListener('keydown', function(e) {
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        imagesInput.click();
+      }
+    });
+    addImageBox.addEventListener('click', function() {
+      imagesInput.click();
+    });
+    imagesInput.addEventListener('change', function(e) {
+      updateImagePreviews();
+    });
+    function updateImagePreviews() {
+      imagePreview.innerHTML = "";
+      Array.from(imagesInput.files).forEach((file, idx) => {
+        if (!file.type.startsWith('image/')) return;
+        const thumb = document.createElement('img');
+        thumb.src = URL.createObjectURL(file);
+        thumb.className = "image-preview-thumb rounded-md object-cover border border-indigo-200 shadow";
+        thumb.title = file.name;
+        imagePreview.appendChild(thumb);
+      });
+      if (imagesInput.files.length < 3) {
+        imageError.style.display = 'block';
+        imageError.textContent = "Min 3 images required.";
+        addImageBox.classList.add("shake");
+        setTimeout(() => addImageBox.classList.remove("shake"), 400);
+      } else {
+        imageError.style.display = 'none';
+      }
+    }
+    function collectFormData() {
+      const getVal = id => (document.getElementById(id)?.value || '').trim();
+      const getSel = id => {
+        const sel = document.getElementById(id);
+        return sel ? (sel.selectedIndex > 0 ? sel.options[sel.selectedIndex].text : '') : '';
+      };
+      const isChecked = id => !!document.getElementById(id)?.checked;
+      return {
+        Category: getSel('category'),
+        Bedroom: getSel('bedroom'),
+        Washroom: getSel('washroom'),
+        Balcony: getSel('balconni'),
+        'Drawing/Dining Separate': isChecked('separateDrawingDining') ? 'Yes' : 'No',
+        Description: getVal('description'),
+        Location: getVal('location'),
+        Contact: getVal('contact'),
+        Rent: getVal('rent'),
+        'Rent Type': getSel('rentType'),
+        Photos: imagesInput.files
+      }
+    }
+    function showPreviewModal(formData) {
+      const modal = document.getElementById('previewModalOverlay');
+      const content = document.getElementById('previewContent');
+      let html = '';
+      html += `<div><span class="font-bold text-gray-700">Type:</span> ${formData.Category}</div>`;
+      html += `<div><span class="font-bold text-gray-700">Bed:</span> ${formData.Bedroom}</div>`;
+      html += `<div><span class="font-bold text-gray-700">Bath:</span> ${formData.Washroom}</div>`;
+      html += `<div><span class="font-bold text-gray-700">Balcony:</span> ${formData.Balcony}</div>`;
+      html += `<div><span class="font-bold text-gray-700">Drawing &amp; Dining Separate?</span> ${formData['Drawing/Dining Separate']}</div>`;
+      html += `<div><span class="font-bold text-gray-700">Location:</span> ${formData.Location}</div>`;
+      html += `<div><span class="font-bold text-gray-700">Contact:</span> ${formData.Contact}</div>`;
+      html += `<div><span class="font-bold text-gray-700">Rent:</span> ${formData.Rent ? '৳' + Number(formData.Rent) : ''}</div>`;
+      html += `<div><span class="font-bold text-gray-700">Rent Type:</span> ${formData['Rent Type']}</div>`;
+      if (formData.Description) {
+        html += `<div><span class="font-bold text-gray-700">Description:</span> <span class="text-gray-800">${formData.Description}</span></div>`;
+      }
+      if (formData.Photos && formData.Photos.length > 0) {
+        html += `<div><span class="font-bold text-gray-700">Photos:</span><div class="flex gap-2 mt-1">`;
+        Array.from(formData.Photos).slice(0,3).forEach(f => {
+          if (f.type.startsWith("image/")) {
+            const url = URL.createObjectURL(f);
+            html += `<img src="${url}" class="w-12 h-12 rounded-md border border-indigo-200 object-cover" alt="Photo"/>`;
+          } else {
+            html += `<span class="text-xs text-pink-600">${f.name}</span>`;
+          }
+        });
+        html += `</div><div class="text-xs text-gray-500 mt-1">${formData.Photos.length} file(s)</div></div>`;
+      }
+      content.innerHTML = html;
+      modal.style.display = 'flex';
+    }
+    function hidePreviewModal() {
+      document.getElementById('previewModalOverlay').style.display = 'none';
+    }
+    function showSuccessModal() {
+      document.getElementById('successModalOverlay').style.display = 'flex';
+      setTimeout(() => {
+        document.getElementById('successModalOverlay').style.display = 'none';
+        window.location.reload();
+      }, 1000);
+    }
+    document.getElementById('previewModalOverlay').addEventListener('click', function(e){
+      if(e.target===this) hidePreviewModal();
+    });
+    function validateForm() {
+      let valid = true;
+      if (imagesInput.files.length < 3) {
+        imageError.style.display = 'block';
+        imageError.textContent = "Min 3 images required.";
+        addImageBox.classList.add("shake");
+        setTimeout(() => addImageBox.classList.remove("shake"), 500);
+        valid = false;
+      } else {
+        imageError.style.display = "none";
+      }
+      const contact = document.getElementById('contact').value.trim();
+      if (!/^01[0-9]{9,10}$/.test(contact)) {
+        showFormError("Invalid phone number.");
+        valid = false;
+      }
+      const rent = document.getElementById('rent').value;
+      if (!rent || isNaN(rent) || Number(rent) <= 0) {
+        showFormError("Enter valid rent.");
+        valid = false;
+      }
+      // Validate balcony selection
+      const balconniSel = document.getElementById('balconni');
+      if (!balconniSel || balconniSel.selectedIndex <= 0) {
+        showFormError("Please select number of balconies.");
+        valid = false;
+      }
+      return valid;
+    }
+    function showFormError(msg, success=false) {
+      const errBox = document.getElementById('formErrorMsg');
+      errBox.textContent = msg;
+      errBox.style.opacity = "1";
+      errBox.classList.remove("pointer-events-none");
+      if (success) {
+        errBox.classList.add("bg-green-100", "text-green-700");
+        errBox.classList.remove("bg-pink-100", "text-pink-600");
+      } else {
+        errBox.classList.add("bg-pink-100", "text-pink-600");
+        errBox.classList.remove("bg-green-100", "text-green-700");
+      }
+      setTimeout(() => {
+        errBox.style.opacity = "0";
+        errBox.textContent = "";
+        errBox.classList.add("pointer-events-none");
+      }, 1100 + (success ? 500 : 0));
+    }
+    document.getElementById('addPropertyForm').addEventListener('submit', function(event){
+      event.preventDefault();
+      if (!validateForm()) return false;
+      const formData = collectFormData();
+      showPreviewModal(formData);
+      return false;
+    });
+    document.getElementById('finalPostBtn').addEventListener('click', function(e){
+      hidePreviewModal();
+      showSuccessModal();
+    });
+  </script>
+</body>
+</html>

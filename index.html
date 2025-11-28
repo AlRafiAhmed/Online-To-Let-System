@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tolet Bangla | House Rent Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", "Noto Sans Bengali", sans-serif;
+      }
+      .hero-slide {
+        transition: background-image 0.6s ease-in-out;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <header class="sticky top-0 z-50 bg-white/90 shadow-sm backdrop-blur">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-6">
+        <div class="flex items-center gap-2">
+          <div class="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-600 text-white">
+            <span class="text-lg font-bold">TB</span>
+          </div>
+          <div>
+            <p class="text-xl font-extrabold uppercase tracking-wide text-indigo-700">
+              TOLET BANGLA
+            </p>
+            <p class="text-sm text-gray-500">House Rent Solution</p>
+          </div>
+        </div>
+        <button
+          id="mobileMenuToggle"
+          class="ml-auto inline-flex items-center rounded-md p-2 text-gray-600 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 md:hidden"
+          aria-label="Toggle navigation"
+        >
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <div
+          id="navbarMenu"
+          class="absolute left-0 right-0 top-full hidden flex-col gap-4 bg-white px-6 pb-6 shadow-lg md:static md:flex md:flex-1 md:flex-row md:items-center md:justify-between md:bg-transparent md:p-0 md:shadow-none"
+        >
+          <div class="flex flex-col items-center justify-center w-full">
+            <div class="flex gap-6 items-center justify-center bg-white rounded-2xl shadow px-6 py-3 relative">
+              <style>
+                .fancy-nav-link {
+                  position: relative;
+                  display: inline-block;
+                  padding: 0.5rem 1.25rem;
+                  border-radius: 0.75rem;
+                  font-weight: 600;
+                  font-size: 0.95rem;
+                  color: #3b3759;
+                  transition: color 0.2s;
+                  overflow: hidden;
+                  z-index: 1;
+                }
+                .fancy-nav-link::before,
+                .fancy-nav-link::after {
+                  content: '';
+                  position: absolute;
+                  left: 50%;
+                  top: 50%;
+                  transform: translate(-50%, -50%) scale(0.95);
+                  width: 100%;
+                  height: 100%;
+                  border-radius: 0.75rem;
+                  opacity: 0;
+                  transition: opacity 0.5s, transform 0.5s;
+                  z-index: -1;
+                }
+                .fancy-nav-link::before {
+                  background: linear-gradient(90deg, #6366f1, #ec4899, #f59e42 120%);
+                  filter: blur(0.5px);
+                }
+                .fancy-nav-link::after {
+                  background: white;
+                  opacity: 1;
+                  z-index: -2;
+                }
+                .fancy-nav-link:hover {
+                  color: #fff;
+                }
+                .fancy-nav-link:hover::before {
+                  opacity: 1;
+                  transform: translate(-50%, -50%) scale(1.08);
+                  animation: colorfulMove 1.2s linear infinite;
+                }
+                .fancy-nav-link:hover::after {
+                  opacity: 0;
+                }
+                @keyframes colorfulMove {
+                  0% { filter: hue-rotate(0deg); }
+                  100% { filter: hue-rotate(360deg); }
+                }
+              </style>
+              <a href="#" class="fancy-nav-link">Home</a>
+              <a href="add_property.html" class="fancy-nav-link">Property List</a>
+              <a href="add_property.html" class="fancy-nav-link">Add Post</a>
+              <a href="#contact" class="fancy-nav-link">Support</a>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
+            <button 
+              class="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+              onclick="window.location.href='login.html';"
+              type="button"
+            >
+              Admin
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section style="position:relative; width:100vw; left:50%; right:50%; transform:translateX(-50%); overflow-x:hidden; margin-bottom:2rem;">
+        <div class="relative w-screen min-w-full" style="min-height:260px; aspect-ratio:16/9; max-height:75vh;">
+          <img 
+            id="slider-img" 
+            src="img/1.png" 
+            alt="Property Image" 
+            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out opacity-100"
+            style="min-height:260px;"
+          />
+        </div>
+        <script>
+          // Array of image sources in the 'img' directory
+          const sliderImages = [
+            '0.png',
+            '1.png',
+            '3.png',
+            '4.png',
+            '5.png',
+            '2.png'
+          ];
+
+          let currentImageIndex = 0;
+          const sliderImg = document.getElementById('slider-img');
+
+          function showNextImage() {
+            sliderImg.style.opacity = 0;
+            setTimeout(() => {
+              currentImageIndex = (currentImageIndex + 1) % sliderImages.length;
+              sliderImg.src = sliderImages[currentImageIndex];
+              sliderImg.style.opacity = 1;
+            }, 350);
+          }
+
+          sliderImg.onload = function () {
+            sliderImg.style.opacity = 1;
+          };
+
+          setInterval(showNextImage, 2000);
+        </script>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-4 py-14 md:px-6">
+        <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500">
+              Browse by need
+            </p>
+            <h2 class="mt-1 text-2xl font-bold text-gray-900 sm:text-3xl">
+              আপনার জন্য জনপ্রিয় ক্যাটেগরি
+            </h2>
+          </div>
+          <div class="text-sm text-gray-500">
+            সঠিক ক্যাটেগরি নির্বাচন করে দ্রুত খুঁজে নিন আপনার পছন্দের বাসা।
+          </div>
+        </div>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <button
+            class="category-tab rounded-full border border-indigo-500 bg-indigo-500 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-400"
+            data-filter="all"
+          >
+            All
+          </button>
+          <button class="category-tab rounded-full border border-gray-200 px-5 py-2 text-sm font-semibold text-gray-700 transition hover:border-indigo-500 hover:text-indigo-600" data-filter="family">
+            Family
+          </button>
+          <button class="category-tab rounded-full border border-gray-200 px-5 py-2 text-sm font-semibold text-gray-700 transition hover:border-indigo-500 hover:text-indigo-600" data-filter="bachelor">
+            Bachelor
+          </button>
+          <button class="category-tab rounded-full border border-gray-200 px-5 py-2 text-sm font-semibold text-gray-700 transition hover:border-indigo-500 hover:text-indigo-600" data-filter="office">
+            Office
+          </button>
+          <button class="category-tab rounded-full border border-gray-200 px-5 py-2 text-sm font-semibold text-gray-700 transition hover:border-indigo-500 hover:text-indigo-600" data-filter="sublet">
+            Sublet
+          </button>
+          <button class="category-tab rounded-full border border-gray-200 px-5 py-2 text-sm font-semibold text-gray-700 transition hover:border-indigo-500 hover:text-indigo-600" data-filter="hostel">
+            Hostel
+          </button>
+          <button class="category-tab rounded-full border border-gray-200 px-5 py-2 text-sm font-semibold text-gray-700 transition hover:border-indigo-500 hover:text-indigo-600" data-filter="shop">
+            Shop
+          </button>
+        </div>
+      </section>
+
+      <section id="featured" class="bg-white py-14">
+        <div class="mx-auto max-w-6xl px-4 md:px-6">
+          <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500">
+                Featured Properties
+              </p>
+              <h2 class="mt-1 text-2xl font-bold text-gray-900 sm:text-3xl">
+                সেরা বাসা বাছাই করুন
+              </h2>
+            </div>
+            <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500">
+              সব দেখুন
+            </a>
+          </div>
+          <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <article class="property-card flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg" data-category="family">
+              <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80" alt="Family flat" class="h-48 w-full object-cover" />
+              <div class="flex flex-1 flex-col p-5">
+                <h3 class="text-lg font-semibold text-gray-900">Family Flat Rent</h3>
+                <p class="mt-2 flex-1 text-sm text-gray-500">Mirpur DOHS, Dhaka · Tk 32,000/month</p>
+                <button class="mt-4 inline-flex items-center justify-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400">
+                  যোগাযোগ করুন
+                </button>
+              </div>
+            </article>
+            <article class="property-card flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg" data-category="bachelor">
+              <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80" alt="Bachelor studio" class="h-48 w-full object-cover" />
+              <div class="flex flex-1 flex-col p-5">
+                <h3 class="text-lg font-semibold text-gray-900">Bachelor Studio</h3>
+                <p class="mt-2 flex-1 text-sm text-gray-500">Banani, Dhaka · Tk 16,500/month</p>
+                <button class="mt-4 inline-flex items-center justify-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400">
+                  যোগাযোগ করুন
+                </button>
+              </div>
+            </article>
+            <article class="property-card flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg" data-category="office">
+              <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80" alt="Office space" class="h-48 w-full object-cover" />
+              <div class="flex flex-1 flex-col p-5">
+                <h3 class="text-lg font-semibold text-gray-900">Modern Office Floor</h3>
+                <p class="mt-2 flex-1 text-sm text-gray-500">Karwan Bazar, Dhaka · Tk 85,000/month</p>
+                <button class="mt-4 inline-flex items-center justify-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400">
+                  যোগাযোগ করুন
+                </button>
+              </div>
+            </article>
+            <article class="property-card flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg" data-category="sublet">
+              <img src="https://images.unsplash.com/photo-1505692794403-55b39b160696?auto=format&fit=crop&w=800&q=80" alt="Sublet" class="h-48 w-full object-cover" />
+              <div class="flex flex-1 flex-col p-5">
+                <h3 class="text-lg font-semibold text-gray-900">Sublet Room</h3>
+                <p class="mt-2 flex-1 text-sm text-gray-500">Uttara Sector 7, Dhaka · Tk 8,000/month</p>
+                <button class="mt-4 inline-flex items-center justify-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400">
+                  যোগাযোগ করুন
+                </button>
+              </div>
+            </article>
+            <article class="property-card flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg" data-category="hostel">
+              <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80" alt="Hostel" class="h-48 w-full object-cover" />
+              <div class="flex flex-1 flex-col p-5">
+                <h3 class="text-lg font-semibold text-gray-900">Girls Hostel</h3>
+                <p class="mt-2 flex-1 text-sm text-gray-500">Dhanmondi, Dhaka · Tk 9,500/month</p>
+                <button class="mt-4 inline-flex items-center justify-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400">
+                  যোগাযোগ করুন
+                </button>
+              </div>
+            </article>
+            <article class="property-card flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg" data-category="shop">
+              <img src="https://images.unsplash.com/photo-1529429617124-aee401489654?auto=format&fit=crop&w=800&q=80" alt="Shop" class="h-48 w-full object-cover" />
+              <div class="flex flex-1 flex-col p-5">
+                <h3 class="text-lg font-semibold text-gray-900">Retail Shop</h3>
+                <p class="mt-2 flex-1 text-sm text-gray-500">New Market, Dhaka · Tk 25,000/month</p>
+                <button class="mt-4 inline-flex items-center justify-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400">
+                  যোগাযোগ করুন
+                </button>
+              </div>
+            </article>
+            <article class="property-card flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg" data-category="family">
+              <img src="https://images.unsplash.com/photo-1502006723931-60f70c1dc019?auto=format&fit=crop&w=800&q=80" alt="Family duplex" class="h-48 w-full object-cover" />
+              <div class="flex flex-1 flex-col p-5">
+                <h3 class="text-lg font-semibold text-gray-900">Premium Family Duplex</h3>
+                <p class="mt-2 flex-1 text-sm text-gray-500">Baridhara, Dhaka · Tk 120,000/month</p>
+                <button class="mt-4 inline-flex items-center justify-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400">
+                  যোগাযোগ করুন
+                </button>
+              </div>
+            </article>
+            <article class="property-card flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg" data-category="office">
+              <img src="https://images.unsplash.com/photo-1507209696998-3c532be9b2b6?auto=format&fit=crop&w=800&q=80" alt="Co-working space" class="h-48 w-full object-cover" />
+              <div class="flex flex-1 flex-col p-5">
+                <h3 class="text-lg font-semibold text-gray-900">Co-working Space</h3>
+                <p class="mt-2 flex-1 text-sm text-gray-500">Gulshan 1, Dhaka · Tk 45,000/month</p>
+                <button class="mt-4 inline-flex items-center justify-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400">
+                  যোগাযোগ করুন
+                </button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="add-property"
+        class="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 py-16 text-white"
+      >
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1515263487990-61b07816b324?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center opacity-20"></div>
+        <div class="relative mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 text-center md:flex-row md:items-center md:justify-between md:text-left">
+          <div class="max-w-2xl space-y-3">
+            <p class="text-xs uppercase tracking-[0.35em] text-white/70">
+              List and earn
+            </p>
+            <h2 class="text-3xl font-bold md:text-4xl">
+              খালি বাসা? এখনই পোস্ট করুন এবং নির্ভরযোগ্য ভাড়াটিয়া খুঁজে নিন।
+            </h2>
+            <p class="text-sm text-white/90 md:text-base">
+              আমাদের স্মার্ট ম্যাচিং টেকনোলজি আপনার বিজ্ঞাপনকে সঠিক মানুষের কাছে পৌঁছে দেয়।
+            </p>
+          </div>
+          <div class="flex flex-col gap-3">
+            <a
+              href="#"
+              class="inline-flex items-center justify-center rounded-md bg-white px-6 py-3 text-sm font-semibold text-indigo-600 shadow-md transition hover:bg-indigo-50"
+            >
+              আপনার বাসা দিন ভাড়ায়
+            </a>
+            <a href="#" class="text-sm font-semibold text-white/80 hover:text-white">
+              মূল্য পরিকল্পনা দেখুন
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact" class="bg-gray-900 py-12 text-gray-300">
+      <div class="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-4 md:px-6">
+        <div class="space-y-3">
+          <p class="text-lg font-bold text-white">TOLET BANGLA</p>
+          <p class="text-sm">
+            সহজ ও দ্রুত বাসা ভাড়া খুঁজে পাওয়ার বিশ্বস্ত ডিজিটাল প্ল্যাটফর্ম।
+          </p>
+        </div>
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-widest text-white">Quick Links</p>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li><a href="#" class="hover:text-white">About</a></li>
+            <li><a href="#contact" class="hover:text-white">Contact</a></li>
+            <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-white">Help</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-widest text-white">Contact</p>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li>support@toletbangla.com</li>
+            <li>+880 1234-567890</li>
+            <li>Dhaka, Bangladesh</li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-widest text-white">Follow Us</p>
+          <div class="mt-4 flex items-center gap-3 text-xl">
+            <a href="https://facebook.com" class="rounded-full bg-white/10 p-3 text-white transition hover:bg-indigo-500" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="h-5 w-5">
+                <path
+                  d="M22 12.073C22 6.505 17.523 2 12 2S2 6.505 2 12.073C2 17.09 5.657 21.129 10.438 21.99v-6.405H7.898V12.07h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.776-1.63 1.567v1.94h2.773l-.443 2.514h-2.33v6.405C18.343 21.13 22 17.09 22 12.073Z"
+                />
+              </svg>
+            </a>
+            <a href="https://instagram.com" class="rounded-full bg-white/10 p-3 text-white transition hover:bg-indigo-500" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="h-5 w-5">
+                <path
+                  d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5Zm8.75 2.25a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"
+                />
+              </svg>
+            </a>
+            <a href="https://youtube.com" class="rounded-full bg-white/10 p-3 text-white transition hover:bg-indigo-500" aria-label="YouTube">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="h-5 w-5">
+                <path
+                  d="M21.8 8.001a2.751 2.751 0 0 0-1.936-1.947C18.254 5.5 12 5.5 12 5.5s-6.255 0-7.863.554A2.75 2.75 0 0 0 2.2 8.001 28.72 28.72 0 0 0 2 12a28.72 28.72 0 0 0 .2 3.999 2.751 2.751 0 0 0 1.936 1.948C5.745 18.5 12 18.5 12 18.5s6.254 0 7.863-.553a2.75 2.75 0 0 0 1.936-1.948c.134-.99.2-1.993.201-2.999a28.72 28.72 0 0 0-.2-3.999Zm-11.53 6.5v-5l4.998 2.5-4.998 2.5Z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="mt-10 border-t border-white/10 pt-6 text-center text-xs text-white/70">
+          © 2025 Tolet Bangla | All Rights Reserved
+        </div>
+      </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const heroImages = ["img/0.png", "img/1.png", "img/2.png", "img/3.png", "img/4.png"];
+        let currentHeroIndex = 0;
+        const heroBackground = document.getElementById("heroBackground");
+
+        const updateHeroBackground = () => {
+          if (!heroBackground) return;
+          heroBackground.style.backgroundImage = `url('${heroImages[currentHeroIndex]}')`;
+          currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+        };
+
+        updateHeroBackground();
+        setInterval(updateHeroBackground, 1500);
+
+        const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+        const navbarMenu = document.getElementById("navbarMenu");
+
+        if (mobileMenuToggle && navbarMenu) {
+          mobileMenuToggle.addEventListener("click", () => {
+            navbarMenu.classList.toggle("hidden");
+          });
+        }
+
+        const categoryTabs = document.querySelectorAll(".category-tab");
+        const propertyCards = document.querySelectorAll(".property-card");
+
+        const setActiveTab = (activeTab) => {
+          categoryTabs.forEach((tab) => {
+            tab.classList.remove("bg-indigo-500", "text-white", "border-indigo-500");
+            tab.classList.add("border-gray-200", "text-gray-700");
+          });
+
+          activeTab.classList.add("bg-indigo-500", "text-white", "border-indigo-500");
+          activeTab.classList.remove("border-gray-200", "text-gray-700");
+        };
+
+        categoryTabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            setActiveTab(tab);
+            const filter = tab.dataset.filter;
+
+            propertyCards.forEach((card) => {
+              const category = card.dataset.category;
+              if (filter === "all" || category === filter) {
+                card.classList.remove("hidden");
+                card.classList.add("flex");
+              } else {
+                card.classList.add("hidden");
+                card.classList.remove("flex");
+              }
+            });
+          });
+        });
+
+        const defaultTab = document.querySelector('.category-tab[data-filter="all"]');
+        if (defaultTab) {
+          defaultTab.click();
+        }
+      });
+    </script>
+  </body>
+</html>
+
