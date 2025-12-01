@@ -158,9 +158,27 @@
         align-items: stretch;
       }
     }
+    /* Custom back button additional margin for mobile */
+    @media (max-width: 440px) {
+      .back-btn-top {
+        left: 4px !important;
+        top: 6px !important;
+      }
+    }
   </style>
 </head>
 <body class="w-full h-full flex items-center justify-center relative">
+  <!-- Back Button: Top Left -->
+  <a href="index.html"
+     class="back-btn-top absolute top-6 left-6 z-30 flex flex-row items-center group hover:scale-105 transition-transform"
+     style="text-decoration: none;"
+     aria-label="Back to Home"
+  >
+    <svg class="w-6 h-6 mr-1 text-indigo-500 group-hover:text-pink-500 transition-colors duration-150" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+      <path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="font-medium text-indigo-700 group-hover:text-pink-600 text-base">Back</span>
+  </a>
   <!-- Animated Video Background -->
   <video class="vdo-bg spin-bg" autoplay muted loop playsinline style="opacity:0.7;">
     <source src="img/bgc.mp4" type="video/mp4"/>
@@ -376,12 +394,20 @@
         return sel ? (sel.selectedIndex > 0 ? sel.options[sel.selectedIndex].text : '') : '';
       };
       const isChecked = id => !!document.getElementById(id)?.checked;
+      // Changed here: pick drawing/dining option
+      let drawingDiningSelectedOption = '';
+      const ddOpt = document.getElementById('drawingDiningOption');
+      if (ddOpt) {
+        const idx = ddOpt.selectedIndex;
+        drawingDiningSelectedOption =
+          idx > 0 ? ddOpt.options[idx].text : '';
+      }
       return {
         Category: getSel('category'),
         Bedroom: getSel('bedroom'),
         Washroom: getSel('washroom'),
         Balcony: getSel('balconni'),
-        'Drawing/Dining Separate': isChecked('separateDrawingDining') ? 'Yes' : 'No',
+        'Drawing/Dining Arrangement': drawingDiningSelectedOption,
         Description: getVal('description'),
         Location: getVal('location'),
         Contact: getVal('contact'),
@@ -398,7 +424,7 @@
       html += `<div><span class="font-bold text-gray-700">Bed:</span> ${formData.Bedroom}</div>`;
       html += `<div><span class="font-bold text-gray-700">Bath:</span> ${formData.Washroom}</div>`;
       html += `<div><span class="font-bold text-gray-700">Balcony:</span> ${formData.Balcony}</div>`;
-      html += `<div><span class="font-bold text-gray-700">Drawing &amp; Dining Separate?</span> ${formData['Drawing/Dining Separate']}</div>`;
+      html += `<div><span class="font-bold text-gray-700">Drawing &amp; Dining Arrangement:</span> ${formData['Drawing/Dining Arrangement']}</div>`;
       html += `<div><span class="font-bold text-gray-700">Location:</span> ${formData.Location}</div>`;
       html += `<div><span class="font-bold text-gray-700">Contact:</span> ${formData.Contact}</div>`;
       html += `<div><span class="font-bold text-gray-700">Rent:</span> ${formData.Rent ? '৳' + Number(formData.Rent) : ''}</div>`;
@@ -459,6 +485,12 @@
       const balconniSel = document.getElementById('balconni');
       if (!balconniSel || balconniSel.selectedIndex <= 0) {
         showFormError("Please select number of balconies.");
+        valid = false;
+      }
+      // Validate drawing/dining arrangement selection
+      const ddSel = document.getElementById('drawingDiningOption');
+      if (!ddSel || ddSel.selectedIndex <= 0) {
+        showFormError("Please select drawing/dining arrangement.");
         valid = false;
       }
       return valid;
